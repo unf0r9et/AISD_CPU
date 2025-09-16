@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#define lastIndex 9
+#define lastElement 4
+
+
 typedef struct {
     int array[10];
     int index;
@@ -18,7 +22,14 @@ int main(void) {
     return 0;
 }
 
+
+/*
+ *---------------------------------FUNCTION-----------------------------------|
+ */
+
+
 void CPU(const int tact, const int input) {
+    int downtime = 0;
     User operationArray[] = {
         {{3, 2, 3, 4, 5, 6, 9, 3, 2, 0}, 0, 0, 0},
         {{1, 2, 1, 8, 1, 6, 1, 4, 2, 3}, 0, 0, 0},
@@ -27,20 +38,24 @@ void CPU(const int tact, const int input) {
         {{9, 2, 1, 2, 3, 3, 1, 1, 2, 4}, 0, 0, 0}
     };
 
-    int downtime = 0;;
-    TactFunction(tact, input, &operationArray[PriorityDetermination(operationArray)], &downtime);
 
+    while (operationArray[lastElement].array[lastIndex] != 0) {
+        const int indexOperation = PriorityDetermination(operationArray);
+        if (indexOperation == -1) break;
+        TactFunction(tact, input, &operationArray[indexOperation], &downtime);
+    }
 }
 
 void TactFunction(const int tact, const int input, User *operation, int *downtime) {
     for (int i = 1; i <= tact; i++) {
         operation->array[operation->index] -= 1;
         if (operation->array[operation->index] == 0) {
-            if (i < tact) {
-                *downtime += tact - i;
-            }
             operation->index += 1;
             operation->input = input;
+            if (i < tact) {
+                *downtime += tact - i;
+                operation->input -= tact - i;
+            }
             break;
         }
     }
@@ -48,5 +63,23 @@ void TactFunction(const int tact, const int input, User *operation, int *downtim
 }
 
 int PriorityDetermination(User array[]) {
-    return 0;
+    for (int i = 0; i <= lastElement; i++) {
+        if (!array[i].isUse) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void ArrayTraversalInput(const int tact, User *array[]) {
+    for (int i = 0; i <= lastElement; i++) {
+        array[i]->input -= tact;
+        if (array[i]->input < 0) array[i]->input = 0;
+    }
+}
+
+void ArrayTraversalIsUse(User *array[]) {
+    for (int i = 0; i <= lastElement; i++) {
+        array[i]->isUse = 0;
+    }
 }
