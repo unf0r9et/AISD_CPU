@@ -13,7 +13,7 @@ typedef struct {
 
 void CPU();
 
-void TactFunction(int tact, int input, User *operation, int *downtime);
+void TactFunction(int tact, int input, User *operation, int *downtime, int *tactCounter);
 
 int PriorityDetermination(User array[]);
 
@@ -32,6 +32,7 @@ int main(void) {
 
 void CPU(const int tact, const int input) {
     int downtime = 0;
+    int tactCounter = 0;
     User operationArray[] = {
         {{3, 2, 3, 4, 5, 6, 9, 3, 2, 0}, 0, 0, 0},
         {{1, 2, 1, 8, 1, 6, 1, 4, 2, 3}, 0, 0, 0},
@@ -45,11 +46,11 @@ void CPU(const int tact, const int input) {
         const int indexOperation = PriorityDetermination(operationArray);
         if (indexOperation == -1) break;
         ArrayTraversal(tact, operationArray);
-        TactFunction(tact, input, &operationArray[indexOperation], &downtime);
+        TactFunction(tact, input, &operationArray[indexOperation], &downtime, &tactCounter);
     }
 }
 
-void TactFunction(const int tact, const int input, User *operation, int *downtime) {
+void TactFunction(const int tact, const int input, User *operation, int *downtime, int *tactCounter) {
     for (int i = 1; i <= tact; i++) {
         operation->array[operation->index] -= 1;
         if (operation->array[operation->index] == 0) {
@@ -62,6 +63,7 @@ void TactFunction(const int tact, const int input, User *operation, int *downtim
             break;
         }
     }
+    ++*tactCounter;
     operation->isUse = 1;
 }
 
