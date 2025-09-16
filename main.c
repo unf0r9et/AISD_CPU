@@ -17,8 +17,10 @@ void TactFunction(int tact, int input, User *operation, int *downtime);
 
 int PriorityDetermination(User array[]);
 
+void ArrayTraversal(int tact, User array[]);
+
 int main(void) {
-    CPU(2, 3);
+    CPU(2, 2);
     return 0;
 }
 
@@ -42,6 +44,7 @@ void CPU(const int tact, const int input) {
     while (operationArray[lastElement].array[lastIndex] != 0) {
         const int indexOperation = PriorityDetermination(operationArray);
         if (indexOperation == -1) break;
+        ArrayTraversal(tact, operationArray);
         TactFunction(tact, input, &operationArray[indexOperation], &downtime);
     }
 }
@@ -71,15 +74,10 @@ int PriorityDetermination(User array[]) {
     return -1;
 }
 
-void ArrayTraversalInput(const int tact, User *array[]) {
+void ArrayTraversal(const int tact, User array[]) {
     for (int i = 0; i <= lastElement; i++) {
-        array[i]->input -= tact;
-        if (array[i]->input < 0) array[i]->input = 0;
-    }
-}
-
-void ArrayTraversalIsUse(User *array[]) {
-    for (int i = 0; i <= lastElement; i++) {
-        array[i]->isUse = 0;
+        array[i].input -= tact;
+        array[i].isUse = 0;
+        if (array[i].input < 0) array[i].input = 0;
     }
 }
