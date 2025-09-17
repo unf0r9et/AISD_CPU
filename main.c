@@ -84,3 +84,5 @@ void ArrayTraversal(const int tact, User array[]) {
     }
 }
 
+void CPUOOO() {}
+
