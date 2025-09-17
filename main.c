@@ -12,7 +12,7 @@ typedef struct {
     _Bool isCompleted;
 } User;
 
-void CPU();
+void CPU(int tact, int input);
 
 void TactFunction(int tact, int input, User *operation, int *downtime, int *tactCounter);
 
@@ -20,8 +20,10 @@ int PriorityDetermination(User array[]);
 
 void ArrayTraversal(int tact, User array[]);
 
+void printInformation(int downtime, double tactTime, double time);
+
 int main(void) {
-    CPU(2, 2);
+    CPU(2, 0);
     return 0;
 }
 
@@ -34,6 +36,7 @@ int main(void) {
 void CPU(const int tact, const int input) {
     int downtime = 0;
     int tactCounter = 0;
+    const int time = 199;
     User operationArray[] = {
         {{3, 2, 3, 4, 5, 6, 9, 3, 2, 0}, 0, 0, 0, 0},
         {{1, 2, 1, 8, 1, 6, 1, 4, 2, 3}, 0, 0, 0, 0},
@@ -49,7 +52,7 @@ void CPU(const int tact, const int input) {
         TactFunction(tact, input, &operationArray[indexOperation], &downtime, &tactCounter);
     }
 
-    printf("%d %d\n", downtime, tactCounter * tact);
+    printInformation(downtime, (double) tact*tactCounter, (double) time);
 }
 
 void TactFunction(const int tact, const int input, User *operation, int *downtime, int *tactCounter) {
@@ -88,4 +91,10 @@ void ArrayTraversal(const int tact, User array[]) {
         if (array[i].input < 0)
             array[i].input = 0;
     }
+}
+
+void printInformation(const int downtime, const double tactTime, const double time) {
+    printf("-----------------------------------\n"
+           "КПД: %f  Кол-во простоев: %d\n"
+           "-----------------------------------\n", (time / (tactTime)), downtime);
 }
