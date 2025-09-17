@@ -77,9 +77,10 @@ int PriorityDetermination(User array[]) {
 }
 
 void ArrayTraversal(const int tact, User array[]) {
-    for (int i = 5; i <= lastElement; i++) {
+    for (int i = 1; i <= lastElement; i++) {
         array[i].input -= tact;
         array[i].isUsed = 0;
         if (array[i].input < 0) array[i].input = 0;
     }
 }
+
