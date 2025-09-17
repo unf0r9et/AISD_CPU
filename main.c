@@ -83,3 +83,4 @@ void ArrayTraversal(const int tact, User array[]) {
         if (array[i].input < 0) array[i].input = 0;
     }
 }
+
