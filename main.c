@@ -7,7 +7,7 @@
 typedef struct {
     int array[10];
     int index;
-    _Bool isUse;
+    _Bool isUsed;
     int input;
 } User;
 
@@ -64,12 +64,12 @@ void TactFunction(const int tact, const int input, User *operation, int *downtim
         }
     }
     ++*tactCounter;
-    operation->isUse = 1;
+    operation->isUsed = 1;
 }
 
 int PriorityDetermination(User array[]) {
     for (int i = 0; i <= lastElement; i++) {
-        if (!array[i].isUse) {
+        if (!array[i].isUsed) {
             return i;
         }
     }
@@ -79,7 +79,7 @@ int PriorityDetermination(User array[]) {
 void ArrayTraversal(const int tact, User array[]) {
     for (int i = 0; i <= lastElement; i++) {
         array[i].input -= tact;
-        array[i].isUse = 0;
+        array[i].isUsed = 0;
         if (array[i].input < 0) array[i].input = 0;
     }
 }
