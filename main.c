@@ -23,7 +23,7 @@ void ArrayTraversal(int tact, User array[]);
 void printInformation(int downtime, double tactTime, double time, int tact, int input);
 
 int main(void) {
-    CPU(2, 0);
+    CPU(2, 2);
     return 0;
 }
 
@@ -46,8 +46,12 @@ void CPU(const int tact, const int input) {
     };
 
     while (operationArray[lastElement].array[lastIndex] != 0) {
-        const int indexOperation = PriorityDetermination(operationArray);
-        if (indexOperation == -1) break;
+        int indexOperation;
+        while ((indexOperation = PriorityDetermination(operationArray)) == -1) {
+            ArrayTraversal(tact, operationArray);
+            tactCounter++;
+            downtime += tact;
+        }
         ArrayTraversal(tact, operationArray);
         TactFunction(tact, input, &operationArray[indexOperation], &downtime, &tactCounter);
     }
@@ -76,6 +80,9 @@ void TactFunction(const int tact, const int input, User *operation, int *downtim
 }
 
 int PriorityDetermination(User array[]) {
+    if (array[0].isCompleted && array[1].isCompleted && array[2].isCompleted && array[3].isCompleted && !array[4].
+        isCompleted)
+        return 4;
     for (int i = 0; i <= lastElement; i++) {
         if (!array[i].isUsed && !array[i].isCompleted && array[i].input == 0) {
             return i;
@@ -96,5 +103,6 @@ void ArrayTraversal(const int tact, User array[]) {
 void printInformation(const int downtime, const double tactTime, const double time, const int tact, const int input) {
     printf("-----------------------------------|--------------------------------\n"
            "КПД: %f  Кол-во простоев: %d | Время такта: %d Время ввода: %d\n"
-           "-----------------------------------|--------------------------------\n", (time / (tactTime)), downtime, tact, input);
+           "-----------------------------------|--------------------------------\n", (time / (tactTime)), downtime,
+           tact, input);
 }
