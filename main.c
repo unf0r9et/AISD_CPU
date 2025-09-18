@@ -23,7 +23,7 @@ void ArrayTraversal(int tact, User array[]);
 void printInformation(int downtime, double tactTime, double time, int tact, int input);
 
 int main(void) {
-    CPU(2, 2);
+    CPU(2, 5);
     return 0;
 }
 
@@ -37,7 +37,7 @@ void CPU(const int tact, const int input) {
     int downtime = 0;
     int tactCounter = 0;
     int indexOperation = 0;
-    const double time = 199.0;
+    const double time = 200.0;
     User operationArray[] = {
         {{3, 2, 3, 4, 5, 6, 9, 3, 2, 0}, 0, 0, 0, 0},
         {{1, 2, 1, 8, 1, 6, 1, 4, 2, 3}, 0, 0, 0, 0},
