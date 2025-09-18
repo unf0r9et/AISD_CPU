@@ -29,13 +29,14 @@ int main(void) {
 
 
 /*
- *---------------------------------FUNCTION-----------------------------------|
+ *---------------------------------IMPLEMENTATION-OF-FUNCTIONS-----------------------------------|
  */
 
 
 void CPU(const int tact, const int input) {
     int downtime = 0;
     int tactCounter = 0;
+    int indexOperation = 0;
     const double time = 199.0;
     User operationArray[] = {
         {{3, 2, 3, 4, 5, 6, 9, 3, 2, 0}, 0, 0, 0, 0},
@@ -46,7 +47,6 @@ void CPU(const int tact, const int input) {
     };
 
     while (operationArray[lastElement].array[lastIndex] != 0) {
-        int indexOperation;
         while ((indexOperation = PriorityDetermination(operationArray)) == -1) {
             ArrayTraversal(tact, operationArray);
             tactCounter++;
